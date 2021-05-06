@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="fr">
+
+<head>
+  <title>jQuery_projet_04_exercice_04</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-fluid bg-primary">
+    <div class="row  justify-content-center">
+      <h1 class="row p-4 text-center text-warning">jQuery_projet_04_exercice_04</h1>
+      <h5 class="row col-9 p-4 text-center text-light">Créer un formulaire demandant nom, prénom, date de naissance, lieu de naissance, emploi et société. Le nom et le prénom doivent commencer par une majuscule, peuvent être composés et ne pas comporter de chiffre. La date de naissance doit être sous le format jj/mm/aaaa. Au clic sur un bouton, les informations apparaissent dans une modale.</h5>
+      <div class="row bg-warning col-6 rounded p-2 m-2 justify-content-center">
+        <div class="row col-10 justify-content-center bg-secondary rounded m-4">
+        <p id="errorName" class="col-9 text-center text-warning p-2 m-3">NOM :<p><input type="text" name="name" id="name" class="col-9 btn btn-outline-warning rounded text-warning p-2 m-3"/></p></p>
+        <p id="errorFirstName" class="col-9 text-center text-warning p-2 m-3">PRÉNOM :<p><input type="text" name="firstname" id="firstName" class="col-9 btn btn-outline-warning rounded text-warning p-2 m-3"/></p></p>
+        <p id="errorBirthDate" class="col-9 text-center text-warning p-2 m-3">DATE DE NAISSANCE :<p><input type="text" name="birthDate" id="birthDate" class="col-9 btn btn-outline-warning rounded text-warning p-2 m-3"/></p></p>
+        <p id="errorbirthPlace" class="col-9 text-center text-warning p-2 m-3">LIEU DE NAISSANCE : <p><input type="text" name="birthbirthPlace" id="birthPlace"class="col-9 btn btn-outline-warning rounded text-warning p-2 m-3"/></p></p>
+        <p id="errorJob" class="col-9 text-center text-warning p-2 m-3">EMPLOI : <p><input type="text" name="job" id="job" class="col-9 btn btn-outline-warning rounded text-warning p-2 m-3"/></p></p>
+        <p id="errorCompany" class="col-9 text-center text-warning p-2 m-3">SOCIÉTÉ : <p><input type="text" name="company" id="company" class="col-9 btn btn-outline-warning rounded text-warning p-2 m-3"/></p></p>
+        <div class="col-9 p-2 m-3"><button class="col-9 btn btn-outline-light p-2 m-3" name="button" id="allDatasDipslay">AFFICHEZ LES DONNÉES !</button></div>
+        </div>
+      </div>
+    </div>
+<!-- <div class="container offset-1 col-10 justify-content-center"> -->
+
+    <!-- </div> -->
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script >
+  <script>
+  //(19)[0-9]{2}|(20)[0-1][0-9]$
+  $(function(){
+    $('#allDatasDipslay').click(function(){
+      //ici on récupère nos value
+      var name = $('#name').val();
+      var firstName = $('#firstName').val();
+      var birthDate = $('#birthDate').val();
+      var birthPlace = $('#birthPlace').val();
+      var job = $('#job').val();
+      var company = $('#company').val();
+      //ici on initialise des variables contenant nos regex
+      var validName = /^[A-Z][a-z']+([-][A-Za-z][a-z]+)?$/;
+      var validbirthDate = /^([0-2][0-9]|(3)[0-1])\/(0[1-9]|1[0-2])\/(19[0-9]\d|200\d|201[0-9]|202[0-1])$/;
+      // on test la correspondance entre nos values récupérés dans l'input avec nos regex
+      //si ça match pas on applique un border rouge à nos input
+      //sinon si ça match, un border vert
+      if(!validName.test(name)){
+        $('#name').css('border','2px solid red');
+        $('#errorName').html('*Vérifiez votre saisie').css('color', 'red');
+        //si on match pas on retourne false pour arrêter notre fonction
+        return false;
+      }else if(name){
+        $('#name').css('border','2px solid green');
+        $('#name').addClass('name');
+      }
+      if(!validName.test(firstName)){
+        $('#firstName').css('border','2px solid red');
+        $('#errorFirstName').html('*Vérifiez votre saisie').css('color', 'red');
+        return false;
+      }else if(firstName){
+        $('#firstName').css('border','2px solid green');
+      }
+      if(!validbirthDate.test(birthDate)){
+        $('#birthDate').css('border','2px solid red');
+        $('#errorBirthDate').html('*Vérifiez votre saisie').css('color', 'red');
+        return false;
+      }else if(birthDate){
+        $('#birthDate').css('border','2px solid green');
+      }
+      if(!validName.test(birthPlace)){
+        $('#birthPlace').css('border','2px solid red');
+        $('#errorbirthPlace').html('*Vérifiez votre saisie').css('color', 'red');
+        return false;
+      }else if(birthPlace){
+        $('#birthPlace').css('border','2px solid green');
+      }
+      if(job){
+        $('#job').css('border','2px solid green');
+
+      }else if(!job){
+        $('#job').css('border','2px solid red');
+        $('#errorJob').html('*Vérifiez votre saisie').css('color', 'red');
+        return false;
+      }
+      if(company){
+        $('#company').css('border','2px solid green');
+
+      }else if(!company){
+        $('#company').css('border','2px solid red');
+        $('#errorCompany').html('*Vérifiez votre saisie').css('color', 'red');
+        return false;
+      }
+    //  si nos variables renvoient true, on affiche une modale.
+      if(name && firstName && job && company && birthPlace && birthDate){
+        alert('Nom : ' + name + ' Prénom : ' + firstName + ' Née le : ' + birthDate + ' à : ' + birthPlace + ' Emploi : ' + job + ' Chez : ' + company);
+      }
+    });
+  });
+  </script>
+</body>
+
+</html>
